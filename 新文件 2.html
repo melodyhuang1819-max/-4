@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>作品集 ‧ Portfolio | 141D12015</title>
+  <!-- Google Fonts 引入高質感無襯線體 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* 粉色溫馨質感風格 (Warm Pink Minimalist) */
+    :root {
+      --bg-main: #fcf4f5;           /* 柔和淡粉紅背景 */
+      --card-bg: #ffffff;           /* 純白卡片 */
+      --text-main: #2d2729;         /* 深褐灰標題 */
+      --text-muted: #8c8285;        /* 暖灰內文 */
+      --tag-pink: #d94b68;          /* 亮眼粉紅類別標籤 */
+      --tag-bg: #fbebf0;            /* 淺粉紅標籤底色 */
+      --border-radius: 18px;        /* 大圓角造型 */
+      --shadow-soft: 0 8px 24px rgba(217, 75, 104, 0.08);
+      --shadow-hover: 0 14px 32px rgba(217, 75, 104, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.7;
+      padding-bottom: 5rem;
+    }
+
+    /* 頂部 Header */
+    header {
+      background: rgba(252, 244, 245, 0.9);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(217, 75, 104, 0.1);
+    }
+
+    .header-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .site-logo {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--tag-pink);
+      letter-spacing: 0.05em;
+    }
+
+    .header-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      font-weight: 500;
+    }
+
+    /* Hero 標題區 */
+    .hero {
+      text-align: center;
+      padding: 3.5rem 1.5rem 1.5rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-hint {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+
+    /* 分類切換按鈕 (Filter Tabs) */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 1.8rem;
+    }
+
+    .tab-btn {
+      background: #ffffff;
+      border: 1px solid rgba(217, 75, 104, 0.15);
+      color: var(--text-muted);
+      padding: 0.5rem 1.3rem;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--tag-pink);
+      color: #ffffff;
+      border-color: var(--tag-pink);
+      box-shadow: 0 4px 12px rgba(217, 75, 104, 0.25);
+    }
+
+    /* 作品集 Grid 網格 */
+    .portfolio-grid {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.2rem;
+    }
+
+    /* 粉色圓角卡片 */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* 卡片封面大圖區塊 */
+    .card-cover {
+      width: 100%;
+      height: 220px;
+      background-color: #fceef1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .card:hover .card-cover img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 1.8rem 1.6rem 2rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    /* 粉紅色類別標籤 */
+    .card-tag {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--tag-pink);
+      margin-bottom: 0.6rem;
+      display: inline-block;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 0.6rem;
+      line-height: 1.4;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+
+    /* Modal 彈出視窗 */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(45, 39, 41, 0.6);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      z-index: 1000;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background: #ffffff;
+      width: 100%;
+      max-width: 860px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 24px;
+      padding: 2.2rem;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.35s ease;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.4rem;
+      right: 1.4rem;
+      background: var(--bg-main);
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      color: var(--text-muted);
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover {
+      background: var(--tag-pink);
+      color: white;
+    }
+
+    .modal-header {
+      margin-bottom: 1.2rem;
+      padding-right: 3rem;
+    }
+
+    .modal-title {
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-top: 0.3rem;
+    }
+
+    .modal-section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--tag-pink);
+      margin: 1.6rem 0 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .modal-body-text {
+      color: #4a4244;
+      font-size: 0.98rem;
+      line-height: 1.85;
+      background: var(--bg-main);
+      padding: 1.2rem 1.4rem;
+      border-radius: 14px;
+    }
+
+    /* 海報展示圖片容器 */
+    .modal-poster-img {
+      width: 100%;
+      max-height: 600px;
+      object-fit: contain;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      margin-top: 0.8rem;
+      background-color: #f8f8f8;
+      display: block;
+    }
+
+    /* 內嵌簡報與影音容器 */
+    .embed-container {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 */
+      background: #111111;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: 0.8rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .embed-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .tech-tags {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 1.8rem;
+    }
+
+    .tech-badge {
+      background: var(--tag-bg);
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--tag-pink);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部 Header -->
+  <header>
+    <div class="header-container">
+      <div class="site-logo">141D12015</div>
+      <div class="header-sub">PORTFOLIO SHOWCASE</div>
+    </div>
+  </header>
+
+  <!-- Hero 標題區 -->
+  <section class="hero">
+    <h1>作品集 ‧ 數位創作展</h1>
+    <p class="hero-hint">點擊卡片查看詳細內容，並直接在網頁內瀏覽簡報與播放影片</p>
+    
+    <!-- 分類切換按鈕 -->
+    <div class="filter-tabs">
+      <button class="tab-btn active" onclick="filterProjects('all', this)">全部內容 (10)</button>
+      <button class="tab-btn" onclick="filterProjects('health', this)">醫護教育專題</button>
+      <button class="tab-btn" onclick="filterProjects('ai', this)">AI與互動教材</button>
+      <button class="tab-btn" onclick="filterProjects('design', this)">產品與行銷設計</button>
+      <button class="tab-btn" onclick="filterProjects('social', this)">社會關懷紀錄</button>
+    </div>
+  </section>
+
+  <!-- 作品集 Grid -->
+  <main class="portfolio-grid" id="portfolio-grid"></main>
+
+  <!-- 彈出視窗 Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      
+      <div class="modal-header">
+        <span class="card-tag" id="modal-tag">類別</span>
+        <h2 class="modal-title" id="modal-title">作品名稱</h2>
+      </div>
+
+      <!-- 介紹 -->
+      <div class="modal-section-title">✦ 專案概念與介紹</div>
+      <div class="modal-body-text" id="modal-desc"></div>
+
+      <!-- 專題海報大圖區塊 -->
+      <div id="modal-poster-wrapper" style="display: none;">
+        <div class="modal-section-title">🖼️ 研究專題海報全文</div>
+        <img id="modal-poster-img" class="modal-poster-img" src="" alt="研究海報">
+      </div>
+
+      <!-- Canva 互動簡報區塊 -->
+      <div id="modal-ppt-wrapper" style="display: none;">
+        <div class="modal-section-title">📖 互動簡報（請直接在下方滑動翻頁）</div>
+        <div id="modal-ppt-container-list"></div>
+      </div>
+
+      <!-- 影片展示區塊 -->
+      <div id="modal-video-wrapper" style="display: none;">
+        <div class="modal-section-title">🎬 專案示範影片（點擊直接播放）</div>
+        <div id="modal-video-container-list"></div>
+      </div>
+
+      <!-- 技術標籤 -->
+      <div class="tech-tags" id="modal-tech"></div>
+    </div>
+  </div>
+
+  <script>
+    const projects = [
+      {
+        category: "ai",
+        coverBaseName: "螢幕擷取畫面 2026-10-19 002524",
+        tag: "社會情緒學習 (SEL) 藝術課堂",
+        title: "H5p-情緒領航員",
+        shortDesc: "「心情不迷航，情緒我最行！」認識情緒並做自己的領航員。",
+        fullDesc: "本課程專為國中生至高齡者設計，引導學習者正確認識情緒分類、做自我心情的主人。結合 AI 工具體驗與遊戲化互動，讓學習者在輕鬆有趣的氛圍中探索與關懷內心世界的變化。",
+        canvaEmbedUrls: ["https://www.canva.com/design/DAHMs3LM9oI/XNJlKRRiiXGD9flAXb_9gQ/view?embed"],
+        youtubeIds: ["fRe2sRe5se4"],
+        tech: ["H5P 互動模組", "情緒教育", "SEL 藝術課堂", "Canva 簡報"]
+      },
+      {
+        category: "ai",
+        coverBaseName: "螢幕擷取畫面 2026-10-19 003226",
+        tag: "AI與醫療智慧判讀",
+        title: "機器學習區分慮病症患者與真正患病者之智慧判讀模型",
+        shortDesc: "讓 AI 幫助醫療更精準、更溫暖！建立快速且精準的門診分流模型。",
+        fullDesc: "因過度擔憂健康而反覆就醫的健康焦慮者（慮病症），容易造成醫療資源浪費與自身心理負擔。本團隊開發機器學習判讀模型，整合症狀問卷、心理量表與圖像辨識數據，協助護理師與醫師在門診前進行快速且安全的判讀分流。",
+        canvaEmbedUrls: ["https://www.canva.com/design/DAG7v7qvcSY/ZGsAr6_t2bwAEVrgbTB3jw/view?embed"],
+        tech: ["機器學習", "醫療 AI", "慮病症分流", "圖像辨識", "Canva 簡報"]
+      },
+      {
+        category: "health",
+        coverBaseName: "螢幕擷取畫面 2026-10-19 003658",
+        tag: "醫護教育創作專題",
+        title: "傳染病知多少？健康任務行動!讓腸病毒無處可逃!",
+        shortDesc: "針對國小四年級學生設計的腸病毒衛教與正確洗手教學。",
+        fullDesc: "近年台灣腸病毒流行趨勢居高不下。本專案以國小四年級學生為主要對象，結合遊戲化搶答、情境式洗手體驗與前後測問卷，強化學童正確洗手「濕搓沖捧擦」與「洗手七字訣」之生活衛生習慣。",
+        canvaEmbedUrls: ["https://www.canva.com/design/DAG7T22VLVY/HV7ChXTZMJ1Qaxu5YdupHQ/view?embed"],
+        youtubeIds: ["xg4rOtHMw3Y"],
+        tech: ["腸病毒衛教", "健康宣導", "遊戲化教學", "衛教影片"]
+      },
+      {
+        category: "social",
+        coverBaseName: "螢幕擷取畫面 2026-10-19 004841",
+        tag: "跨文化照護與制度研究",
+        title: "針對中重度失智老人在歐洲和亞洲主要照顧者負擔之探討",
+        shortDesc: "亞洲文化模式與歐美制度模式之照護負擔對比探討。",
+        fullDesc: "深入分析亞洲（強調孝道與居家照護）與歐美（依賴專業機構與社會福利）在照顧中重度失智老人時的模式差異。剖析兩者共同面臨的經濟壓力、24小時身心消耗與缺乏專業知識等挑戰，並提出政策支持與制度改革建議。",
+        posterImgName: "螢幕擷取畫面 2026-10-18 003327", // 指定內含文獻評量的海報檔名
+        tech: ["失智症照護", "照護者負擔", "跨文化比較", "社會福利政策", "PICO實證研究"]
+      },
+      {
+        category: "health",
+        coverBaseName: "C手相救 黃金救援4分鐘",
+        tag: "醫護教育創作專題",
+        title: "C手相救 黃金救援4分鐘",
+        shortDesc: "CPR 與 AED 數位情境學習專案，從傳統教學走向沉浸式情境訓練。",
+        fullDesc: "宣導 CPR 衛教知識與黃金救援 4 分鐘的概念。加入即時回饋、任務挑戰與視覺提示，透過情境式角色任務與互動練習，提升判斷、操作與團隊合作能力。",
+        canvaEmbedUrls: ["https://www.canva.com/design/DAHLsKgAJac/UjSnrS24UBcx_xHv77MOKQ/view?embed"],
+        youtubeIds: ["9HkdE-pMduc"],
+        tech: ["CPR+AED 衛教", "遊戲化學習", "Canva 簡報", "情境訓練"]
+      },
+      {
+        category: "design",
+        coverBaseName: "Homie一鍵式加壓機",
+        tag: "產品原型與機構設計",
+        title: "Homie 一鍵式加壓機",
+        shortDesc: "自動縮緊止血帶靠枕與一鍵式加壓設備概念與機構原型展示。",
+        fullDesc: "「Homie一鍵式加壓機」整體結合自動調壓、計時與手腕固定，搭配定期感控耗材、設備租賃方案與專業的教育訓練，協助醫療機構降低重抽成本並提升抽血流程效率與安全性。",
+        canvaEmbedUrls: ["https://www.canva.com/design/DAHLCKL8vvA/FUV5z_MU7bBynS1JoRn3qA/view?embed"],
+        youtubeIds: ["mlE8Pi0HSwE"],
+        tech: ["機構設計", "產品原型", "Canva 簡報", "UX 體驗"]
+      },
+      {
+        category: "health",
+        coverBaseName: "熬夜so bad!!!! (熬夜的代價)",
+        tag: "衛教宣導 ‧ PODCAST",
+        title: "熬夜so bad!!!! (熬夜的代價)",
+        shortDesc: "「你以為的放鬆是慢性傷害」—— 探討熬夜危害的衛教短片與 Podcast。",
+        fullDesc: "以生動活潑的 Podcast 訪談與情境影片形式呈現熬夜對身體造成的負擔與慢性傷害，呼籲年輕族群重視睡眠品質並建立良好的作息習慣。",
+        canvaEmbedUrls: ["https://www.canva.com/design/DAHM5vI1tLA/TKfsKv9Xj2Vy5o0a1PnHSQ/view?embed"],
+        youtubeIds: ["3MiTxEXkGy8"],
+        tech: ["Podcast 企劃", "衛教影片製作", "健康宣導", "Canva 簡報"]
+      },
+      {
+        category: "design",
+        coverBaseName: "海報模板競賽 (141D12015)",
+        tag: "醫護教育視覺行銷",
+        title: "海報模板競賽 (141D12015)",
+        shortDesc: "「煙」危害宣導視覺海報，警示戒菸與肺部健康問題之平面設計。",
+        fullDesc: "本作品為醫護教育暨數位學習系專屬視覺模板與警示海報設計。運用強烈視覺呈現吸煙對肺部、心臟及全身健康的危害，警惕大眾重視菸害防制。",
+        canvaEmbedUrls: ["https://www.canva.com/design/DAG4jgxhrXc/vDc4HA2bgS0y0oPAgvuNKg/view?embed"],
+        tech: ["141D12015 模板", "視覺平面設計", "菸害衛教"]
+      },
+      {
+        category: "ai",
+        coverBaseName: "Ai壞不壞-小遊戲",
+        tag: "AI倫理與互動學習",
+        title: "Ai壞不壞-小遊戲",
+        shortDesc: "連連看 x 圖標解密 x 認識 AI 工具，探討人工智慧倫理與應用界線。",
+        fullDesc: "透過趣味連連看與圖標解密遊戲，帶領國中生至高齡者探索人工智能（AI）在日常生活中的應用偏誤、資訊安全性與道德倫理議題。",
+        canvaEmbedUrls: ["https://www.canva.com/design/DAG6miKrsCA/U2kJOCvTPjoMDTj1VTvSPQ/view?embed"],
+        youtubeIds: ["Qu4Zr64nMm0"],
+        tech: ["網頁互動小遊戲", "AI 倫理思辨", "教材設計", "Canva 簡報"]
+      },
+      {
+        category: "social",
+        coverBaseName: "安靜的死角",
+        tag: "社會關懷紀錄專題",
+        title: "安靜的死角",
+        shortDesc: "探討校園與社會隱蔽角落安全問題之影音紀錄專題。",
+        fullDesc: "急診室本應是守護生命的最後一道防線，卻在人手短缺與資源濫用的夾縫中，演變成一場情緒的戰場。我們看見，無數細小的需求堆疊成護理人員沈重的負擔，讓原本的救人之心在精疲力竭中逐漸冰冷。當病患因被忽略而憤怒，護理人員則因過勞而尖銳，這場因「誤解」而起的對立，讓我們決定透過鏡頭思考：在喧囂的急診室中，我們是否遺忘了那份最純粹的醫病溫度？",
+        canvaEmbedUrls: [
+          "https://www.canva.com/design/DAHNRuxI3UU/rjyQrkHEJXIZM1s8R_OgCg/view?embed",
+          "https://www.canva.com/design/DAHHXSAqZOw/i2JwlnEiZNCz3zRkLQkVhw/view?embed"
+        ],
+        youtubeIds: ["cfHEPWEhGZ4"],
+        tech: ["專題影片紀錄", "資訊視覺化", "空間安全研究", "Canva 簡報"]
+      }
+    ];
+
+    const grid = document.getElementById('portfolio-grid');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalTag = document.getElementById('modal-tag');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalPosterWrapper = document.getElementById('modal-poster-wrapper');
+    const modalPosterImg = document.getElementById('modal-poster-img');
+    const modalPptWrapper = document.getElementById('modal-ppt-wrapper');
+    const modalPptContainerList = document.getElementById('modal-ppt-container-list');
+    const modalVideoWrapper = document.getElementById('modal-video-wrapper');
+    const modalVideoContainerList = document.getElementById('modal-video-container-list');
+    const modalTech = document.getElementById('modal-tech');
+
+    // 渲染卡片 (自動處理網址編碼與大寫 .JPG 檔名備用切換)
+    function renderGrid(filterCategory = 'all') {
+      grid.innerHTML = '';
+      projects.forEach((project, index) => {
+        if (filterCategory !== 'all' && project.category !== filterCategory) return;
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => openModal(index);
+
+        const encodedBase = encodeURIComponent(project.coverBaseName);
+
+        card.innerHTML = `
+          <div class="card-cover">
+            <img src="./${encodedBase}.JPG" 
+                 onerror="this.onerror=null; this.src='./${encodedBase}.jpg'; this.onerror=function(){ this.src='./${encodedBase}.png'; this.onerror=function(){ this.src='./${encodedBase}.PNG'; }; };" 
+                 alt="${project.title}">
+          </div>
+          <div class="card-content">
+            <span class="card-tag">${project.tag}</span>
+            <h3 class="card-title">${project.title}</h3>
+            <p class="card-desc">${project.shortDesc}</p>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // 分類切換
+    function filterProjects(category, btnElement) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btnElement.classList.add('active');
+      renderGrid(category);
+    }
+
+    // 開啟 Modal 視窗
+    function openModal(index) {
+      const project = projects[index];
+      modalTag.textContent = project.tag;
+      modalTitle.textContent = project.title;
+      modalDesc.textContent = project.fullDesc;
+
+      // 清空舊的內容
+      modalPptContainerList.innerHTML = '';
+      modalVideoContainerList.innerHTML = '';
+
+      // 渲染研究海報圖片
+      if (project.posterImgName) {
+        const encodedPoster = encodeURIComponent(project.posterImgName);
+        modalPosterImg.src = `./${encodedPoster}.JPG`;
+        modalPosterImg.onerror = function() {
+          this.onerror = null;
+          this.src = `./${encodedPoster}.png`;
+        };
+        modalPosterWrapper.style.display = 'block';
+      } else {
+        modalPosterWrapper.style.display = 'none';
+      }
+
+      // 渲染 Canva 簡報
+      if (project.canvaEmbedUrls && project.canvaEmbedUrls.length > 0) {
+        project.canvaEmbedUrls.forEach((url) => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'embed-container';
+          if (project.canvaEmbedUrls.length > 1) {
+            wrapper.style.marginBottom = '1.2rem';
+          }
+          wrapper.innerHTML = `<iframe src="${url}" allowfullscreen="true" allow="fullscreen"></iframe>`;
+          modalPptContainerList.appendChild(wrapper);
+        });
+        modalPptWrapper.style.display = 'block';
+      } else {
+        modalPptWrapper.style.display = 'none';
+      }
+
+      // 渲染 YouTube 影片
+      if (project.youtubeIds && project.youtubeIds.length > 0) {
+        project.youtubeIds.forEach((id) => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'embed-container';
+          if (project.youtubeIds.length > 1) {
+            wrapper.style.marginBottom = '1.2rem';
+          }
+          wrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=0&playsinline=1&rel=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+          modalVideoContainerList.appendChild(wrapper);
+        });
+        modalVideoWrapper.style.display = 'block';
+      } else {
+        modalVideoWrapper.style.display = 'none';
+      }
+
+      modalTech.innerHTML = project.tech.map(t => `<span class="tech-badge">${t}</span>`).join('');
+      modalOverlay.classList.add('active');
+    }
+
+    // 關閉 Modal
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      modalPptContainerList.innerHTML = '';
+      modalVideoContainerList.innerHTML = '';
+    }
+
+    modalOverlay.onclick = function(e) {
+      if (e.target === modalOverlay) closeModal();
+    };
+
+    // 初始化渲染
+    renderGrid('all');
+  </script>
+</body>
+</html>
